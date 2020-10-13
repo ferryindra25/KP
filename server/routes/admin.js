@@ -4,6 +4,7 @@ const multer = require("multer");
 const connection = require("../connection");
 
 const app = express.Router();
+const fs = require('fs');
 
 app.use("/public/product/", express.static("./public/product"));
 
@@ -192,6 +193,57 @@ app.get("/getBarangByID", async (req, res) => {
     var q = `select * from barang where id_barang = ${id_barang}`;
     var hasil = await connection.query(q);
     res.json(hasil);
+});
+
+app.post("/updateBarang", (req, res) => {
+
+    upload(req, res, async (err) => {
+        var gambarLama = req.body.gambarLama;
+
+        var id_barang = req.body.id_barang;
+        var nama_barang = req.body.nama_barang;
+        var deskripsi = req.body.deskripsi;
+        var harga_barang = req.body.harga_barang;
+
+        var color = req.body.color;
+        var frame = req.body.frame;
+        var fork = req.body.fork;
+        var shifter = req.body.shifter;
+        var rd = req.body.rd;
+        var brake = req.body.brake;
+        var freewheel = req.body.freewheel;
+        var pedal = req.body.pedal;
+        var crankset = req.body.crankset;
+        var bb = req.body.bb;
+        var chain = req.body.chain;
+        var fh = req.body.fh;
+        var rh = req.body.rh;
+        var spokes = req.body.spokes;
+        var rim = req.body.rim;
+        var tires = req.body.tires;
+        var saddle = req.body.saddle;
+        var stem = req.body.stem;
+        var seatpost = req.body.seatpost;
+        var handlebar = req.body.handlebar;
+
+        if (req.file == undefined){
+            //gambar tidak diganti
+            console.log("gambar belum dipilih");
+            res.send("gambar belum dipilih");
+            
+        } else {
+            //gambar diganti
+            try {
+                fs.unlinkSync('./public/product/'+gambarLama);
+                console.log("sukses hapus gambar lama");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        
+    });
+    
 });
 
 module.exports = app;

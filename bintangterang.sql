@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2020 at 11:52 AM
+-- Generation Time: Oct 13, 2020 at 02:22 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -76,6 +76,35 @@ INSERT INTO `customer` (`id_customer`, `email_customer`, `password`, `nama_custo
 (5, 'ferryindra25@gmail.com', '123', 'Ferry Indra Gunawan', 'Legian no 1', '123', '0'),
 (6, 'ferry7@mhs.stts.edu', '123', 'gunawan', 'sby', '123', '0'),
 (7, 'ferry@google.com', '234', 'fer', 'jkt', '345', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dtrans`
+--
+
+DROP TABLE IF EXISTS `dtrans`;
+CREATE TABLE `dtrans` (
+  `id_trans` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `htrans`
+--
+
+DROP TABLE IF EXISTS `htrans`;
+CREATE TABLE `htrans` (
+  `id_trans` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `tgl_trans` date NOT NULL,
+  `total` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -155,6 +184,12 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_customer`);
 
 --
+-- Indexes for table `htrans`
+--
+ALTER TABLE `htrans`
+  ADD PRIMARY KEY (`id_trans`);
+
+--
 -- Indexes for table `katagori`
 --
 ALTER TABLE `katagori`
@@ -181,6 +216,12 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `customer`
   MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `htrans`
+--
+ALTER TABLE `htrans`
+  MODIFY `id_trans` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `katagori`
