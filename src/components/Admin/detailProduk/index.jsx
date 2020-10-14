@@ -9,11 +9,12 @@ const DetailProduk = () => {
     var [detail_barang, setDetail_barang] = useState([]);
     var [katagori, setKatagori] = useState([]);
     var [spesifikasi, setSpesifikasi] = useState([]);
+    const [gambarBarang, setGambarBarang] = useState();
 
     const namaBarang = useFormInput("");
     const deskripsiBarang = useFormInput("");
     const hargaBarang = useFormInput("");
-
+    const gambarLama = useFormInput("");
     const color = useFormInput("");
     const frame = useFormInput("");
     const fork = useFormInput("");
@@ -49,7 +50,11 @@ const DetailProduk = () => {
     
 
     async function getSpesifikasi(){
-        axios.get("/api/getSpesifikasi?id_barang="+id_barang)
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var id = url.searchParams.get("id");
+        
+        axios.get("/api/getSpesifikasi?id_barang="+id)
         .then(function (response){
             setSpesifikasi(response.data[0]);
             color.setValue(response.data[0].color);
@@ -79,12 +84,16 @@ const DetailProduk = () => {
     }
 
     async function getDetailBarang(){
-        axios.get("/api/getBarangByID?id_barang="+id_barang)
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var id = url.searchParams.get("id");
+        axios.get("/api/getBarangByID?id_barang="+id)
         .then(function (response){
             setDetail_barang(response.data[0]);
             namaBarang.setValue(response.data[0].nama_barang);
             deskripsiBarang.setValue(response.data[0].deskripsi);
             hargaBarang.setValue(response.data[0].harga_barang);
+            gambarLama.setValue(response[0].data.gambar);
         }).catch(function (error){
             console.log(error);
         });
@@ -108,6 +117,67 @@ const DetailProduk = () => {
             );
         }
     }
+
+    function gambarChange(e){
+        setGambarBarang(e.target.files[0]);
+    }
+
+    const onClickUpadate = (e) =>{
+        e.preventDefault();
+        var id_katagori = document.getElementById("katagori").value;
+        
+        if (namaBarang.value === "" || deskripsiBarang.value === "" || hargaBarang.value === ""){
+            alert("Pastikan semua field detail barang sudah terisi");
+        } else {
+            try {
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                let bodyFormData = new FormData()
+                bodyFormData.append("id_katagori",id_katagori);
+                bodyFormData.append("id_barang",id);
+                bodyFormData.append("nama_barang",namaBarang.value);
+                bodyFormData.append("deskripsi",deskripsiBarang.value);
+                bodyFormData.append("harga_barang",hargaBarang.value);
+                bodyFormData.append('gambar',gambarBarang);
+                bodyFormData.append('gambarLama',gambarLama.value);
+
+                bodyFormData.append("color",color.value);
+                bodyFormData.append("frame",frame.value);
+                bodyFormData.append("fork",fork.value);
+                bodyFormData.append("shifter",shiftter.value);
+                bodyFormData.append("rd",rd.value);
+                bodyFormData.append("brake",brake.value);
+                bodyFormData.append("freewheel",freewheel.value);
+                bodyFormData.append("pedal",pedal.value);
+                bodyFormData.append("crankset",crankset.value);
+                bodyFormData.append("bb",bb.value);
+                bodyFormData.append("chain",chain.value);
+                bodyFormData.append("fh",fh.value);
+                bodyFormData.append("rh",rh.value);
+                bodyFormData.append("spokes",spokes.value);
+                bodyFormData.append("rim",rim.value);
+                bodyFormData.append("tires",tires.value);
+                bodyFormData.append("saddle",saddle.value);
+                bodyFormData.append("stem",stem.value);
+                bodyFormData.append("seatpost",seatpost.value);
+                bodyFormData.append("handlebar",handlebar.value);
+                axios({
+                    method: 'post',
+                    url: "/api/updateBarang",
+                    data: bodyFormData,
+                    config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                }).then(function (response) {
+                    console.log(response);
+                    getDetailBarang();
+                    getSpesifikasi();
+                })
+            } catch (error){
+                console.log(error);
+            }
+        }
+    }
+
     return (
         <React.Fragment>
             <div className="container-fluid">
@@ -151,7 +221,7 @@ const DetailProduk = () => {
                                 </div>
                                 <div class="form-group">
                                     <label for="gambarProduk">Gambar Produk</label>
-                                    <input type="file" name="gambar" class="form-control-file" id="gambarProduk"></input>
+                                    <input type="file" name="gambar" class="form-control-file" id="gambarProduk" onChange={(e) => gambarChange(e)}></input>
                                 </div>
                                 <hr/>
                                 <h3>Spesifikasi Produk</h3>
@@ -168,7 +238,7 @@ const DetailProduk = () => {
                                     <input type="text" class="form-control" id="fork" placeholder="Fork" value={fork.value} onChange={fork.onChange}></input>
                                 </div>
                                 <div class="form-group">
-                                    <label for="shifter">Shifter</label>
+                                    <label for="shifter">Shiftter</label>
                                     <input type="text" class="form-control" id="shifter" placeholder="Shiftter" value={shiftter.value} onChange={shiftter.onChange}></input>
                                 </div>
                                 <div class="form-group">
@@ -235,7 +305,7 @@ const DetailProduk = () => {
                                     <label for="handlebar">Handlebar</label>
                                     <input type="text" class="form-control" id="handlebar" placeholder="Handlebar" value={handlebar.value} onChange={handlebar.onChange}></input>
                                 </div>
-                                <button className="btn btn-primary mr-3">UPDATE</button>
+                                <button className="btn btn-primary mr-3" onClick={(e) => onClickUpadate(e)}>UPDATE</button>
                                 <button className="btn btn-danger">DELETE</button>
                             </form>
                             

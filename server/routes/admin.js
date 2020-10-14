@@ -201,6 +201,7 @@ app.post("/updateBarang", (req, res) => {
         var gambarLama = req.body.gambarLama;
 
         var id_barang = req.body.id_barang;
+        var id_katagori = req.body.id_katagori;
         var nama_barang = req.body.nama_barang;
         var deskripsi = req.body.deskripsi;
         var harga_barang = req.body.harga_barang;
@@ -229,8 +230,21 @@ app.post("/updateBarang", (req, res) => {
         if (req.file == undefined){
             //gambar tidak diganti
             console.log("gambar belum dipilih");
-            res.send("gambar belum dipilih");
-            
+            //res.send("gambar belum dipilih");
+            var q = `update barang set id_katagori=${id_katagori}, nama_barang='${nama_barang}', deskripsi='${deskripsi}', harga_barang=${harga_barang} where id_barang=${id_barang}`;
+            console.log(q);
+            try {
+                const hasil = await connection.query(q)
+                
+                /*if(hasil.affectedRows > 0 ){
+                    res.status(200).send({status:"success",message:"Update barang berhasil dilakukan"})
+                } else {
+                    res.status(400).send({status:"fail",message:"Insert spesifikasi gagal"})
+                }*/
+                
+            } catch (error) {
+                res.status(500).send(error)
+            }
         } else {
             //gambar diganti
             try {
@@ -239,8 +253,58 @@ app.post("/updateBarang", (req, res) => {
             } catch (err) {
                 console.log(err);
             }
+            var gambar = req.file.filename;
+            var q = `update barang set id_katagori=${id_katagori}, nama_barang='${nama_barang}', deskripsi='${deskripsi}', harga_barang=${harga_barang}, gambar='${gambar}' where id_barang=${id_barang}`;
+            console.log(q);
+            try {
+                const hasil = await connection.query(q)
+                
+                /*if(hasil.affectedRows > 0 ){
+                    res.status(200).send({status:"success",message:"Update barang berhasil dilakukan"})
+                } else {
+                    res.status(400).send({status:"fail",message:"Insert spesifikasi gagal"})
+                }*/
+                
+            } catch (error) {
+                res.status(500).send(error)
+            }
         }
 
+        var qq = `update spesifikasi set
+                    color='${color}',
+                    frame='${frame}',
+                    fork='${fork}',
+                    shifter='${shifter}',
+                    rd='${rd}',
+                    brake='${brake}',
+                    freewheel='${freewheel}',
+                    pedal='${pedal}',
+                    crankset='${crankset}',
+                    bb='${bb}',
+                    chain='${chain}',
+                    fh='${fh}',
+                    rh='${rh}',
+                    spokes='${spokes}',
+                    rim='${rim}',
+                    tires='${tires}',
+                    saddle='${saddle}',
+                    stem='${stem}',
+                    seatpost='${seatpost}',
+                    handlebar='${handlebar}' 
+                    where id_barang = '${id_barang}'`;
+        console.log(qq);
+        try {
+            const hasil = await connection.query(qq)
+                
+            if(hasil.affectedRows > 0 ){
+                res.status(200).send({status:"success",message:"Update barang berhasil dilakukan"})
+            } else {
+                res.status(400).send({status:"fail",message:"Insert spesifikasi gagal"})
+            }
+                
+        } catch (error) {
+            res.status(500).send(error)
+        }
         
     });
     

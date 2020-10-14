@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2020 at 02:22 PM
+-- Generation Time: Oct 14, 2020 at 07:01 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -88,7 +88,8 @@ CREATE TABLE `dtrans` (
   `id_trans` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `harga` int(11) NOT NULL
+  `harga` int(11) NOT NULL,
+  `pesan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
