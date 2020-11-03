@@ -25,6 +25,10 @@ const SideNavigation = (props) => {
         history.push("/admin/katagori");
     }
 
+    const onClickPesanan = (e) => {
+        history.push("/admin/pesanan");
+    }
+
     return(
         <div className="col-2 pl-0">
             <Sidenav defaultOpenKeys={['2']} activeKey={props.activeKey}>
@@ -42,8 +46,8 @@ const SideNavigation = (props) => {
                         <Nav.Item eventKey="3" title="Katagori" icon={<Icon icon="list" />} onClick={(e) => onClickKatagori(e)}>
                             katagori
                         </Nav.Item>
-                        <Nav.Item eventKey="4" title="Katagori" icon={<Icon icon="money" />}>
-                            Penjualan
+                        <Nav.Item eventKey="4" title="Katagori" icon={<Icon icon="money" />} onClick={(e) => onClickPesanan(e)}>
+                            Pesanan
                         </Nav.Item>
                     </Nav>
                 </Sidenav.Body>

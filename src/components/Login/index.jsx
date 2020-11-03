@@ -53,19 +53,22 @@ const Login = () => {
             email : email,
             password : password
         }).then(function (response) {
+            //console.log(response.data);
             if (response.status == 200){
-                console.log(response.data);
-                var namaCustomer = response.data[0].nama_customer;
-                var alamatCustomer = response.data[0].alamat_customer;
-                var telpCustomer = response.data[0].telp_customer;
+                //console.log(response.data);
+                var namaCustomer = response.data.data[0].nama_customer;
+                var alamatCustomer = response.data.data[0].alamat_customer;
+                var telpCustomer = response.data.data[0].telp_customer;
+                var token = response.data.token;
                 window.sessionStorage.setItem("email", email);
                 window.sessionStorage.setItem("nama", namaCustomer);
                 window.sessionStorage.setItem("alamat", alamatCustomer);
                 window.sessionStorage.setItem("telp", telpCustomer);
+                window.sessionStorage.setItem("token", token);
                 alert("anda berhasil login")
                 history.push("/");
             } else if (response.status == 400){
-                alert("Email/password anda salah");
+                alert("Email/password anda salah.");
             }
         }).catch(function (error){
             alert("Email/password anda salah");

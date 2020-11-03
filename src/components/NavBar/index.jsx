@@ -34,15 +34,26 @@ const NavBar = () => {
     sessionStorage.removeItem("nama");
     sessionStorage.removeItem("alamat");
     sessionStorage.removeItem("telp");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("cart");
     history.push("/");
   }
+
+  const onClickHome = (e) => {
+    history.push("/home");
+  }
+
+  const onClickKatagori = (e, id_katagori, nama_katagori) => {
+    history.push("/shop?id_katagori="+id_katagori+"&name="+nama_katagori);
+  }
+
   let dataUser = (
     <Nav.Item icon={<Icon icon="avatar" />} href="/login">Login</Nav.Item>
   );
   if (window.sessionStorage.getItem("email") !== null){
     
     dataUser = (<>
-      <Nav.Item icon={<Icon icon="avatar" />} >{window.sessionStorage.getItem("nama")}</Nav.Item>
+      <Nav.Item icon={<Icon icon="avatar" />} onSelect={(e) => onClickHome(e)}>{window.sessionStorage.getItem("nama")}</Nav.Item>
       <Nav.Item icon={<Icon icon="sign-out" />} onSelect={(e) => onClickLogout(e)}>Logout</Nav.Item>
     </>);
   }
@@ -57,7 +68,7 @@ const NavBar = () => {
             <Dropdown title="Produk">
               {katagori.map((item, index) => {
                 return (
-                  <Dropdown.Item value={item.id_katagori}>{item.nama_katagori}</Dropdown.Item>
+                  <Dropdown.Item value={item.id_katagori} onSelect={(e) => onClickKatagori(e,item.id_katagori, item.nama_katagori)}>{item.nama_katagori}</Dropdown.Item>
                 );
               })}
             </Dropdown>

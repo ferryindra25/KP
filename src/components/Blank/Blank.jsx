@@ -1,14 +1,32 @@
-﻿import React, {useState} from "react";
+﻿import React, {useState, useEffect} from "react";
 import NavBar from "../NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Carousel } from 'react-bootstrap'
+import { Carousel } from 'react-bootstrap';
+import ListItem from "../shop/listProduk";
 
 const Blank = () => {
   const [index, setIndex] = useState(0);
-
+  var [barang, setBarang] = useState([]);
+  var [barangView, setBarangView] = useState([]);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+  useEffect(() => {
+    getBarangFromAPI()
+  }, []);
+  async function getBarangFromAPI(){
+    try {
+      const data = await fetch("/api/getBarang", {method : "GET"});
+      let json_data = await data.json();
+      //console.log(json_data);
+      setBarang(json_data);
+      setBarangView(json_data);
+    } catch (error) {
+      console.log("gagal");
+      console.log(error);
+    }
+  }
+
   return (
     <React.Fragment>
       <NavBar/>
@@ -55,6 +73,21 @@ const Blank = () => {
               </Carousel.Item>
             </Carousel>
           </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <hr/>
+            <h3 className="text-center">Produk Terbaru Dari Kami</h3>
+            <hr/>
+          </div>
+          {
+            barangView.map((item,index) => {
+              console.log(barangView.length);
+              return (
+                <ListItem nama={item.nama_barang} id={item.id_barang} deskripsi={item.deskripsi} gambar={item.gambar} harga={item.harga_barang}/>
+              )
+            })
+          }
         </div>
       </div>
     </React.Fragment>

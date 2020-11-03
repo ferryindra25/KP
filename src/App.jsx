@@ -1,15 +1,17 @@
 ﻿import React from "react";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Blank from "./components/Blank/Blank";
 import Admin from "./components/Admin/adminRoute";
-import addProduct from "./components/addProduct";
-import catagory from "./components/catagory";
-
+import shop from "./components/shop";
+import detail from "./components/detail";
+import home from "./components/home";
+import cart from "./components/cart";
+import pesananAktif from "./components/pesananAktif";
+import historyPesanan from "./components/historyPesanan";
 //TODO Web Template Studio: Add routes for your new pages here.
 const App = () => {
     return (
@@ -19,9 +21,13 @@ const App = () => {
           <Route exact path = "/" component = { Blank } />
           <Route exact path = "/login" component = { Login } />
           <Route exact path = "/register" component = { Register } />
-          <Route exact path = "/addProduct" component = { addProduct } />
-          <Route exact path = "/catagory" component = { catagory } />
+          <Route exact path = "/pesananAktif" component = { pesananAktif } />
+          <Route exact path = "/historyPesanan" component = { historyPesanan } />
+          <Route exact path = "/home" component = { home } />
+          <Route exact path = "/cart" component = { cart } />
           <Route path = "/admin" component = { Admin } />
+          <Route path = "/shop" component = { shop } />
+          <Route path = "/detail" component = { detail } />
         </Switch>
         <Footer />
       </React.Fragment>

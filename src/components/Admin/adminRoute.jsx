@@ -5,7 +5,7 @@ import TambahProduk from "./tambahProduk";
 import DaftarProduk from "./daftarProduk";
 import Katagori from "./katagori";
 import DetailProduk from "./detailProduk";
-
+import Pesanan from "./pesanan";
 import { Switch, Route } from "react-router-dom";
 const Admin = () => {
     return(
@@ -17,6 +17,7 @@ const Admin = () => {
                 <Route exact path = "/admin/tambahProduk" component = { TambahProduk } />
                 <Route exact path = "/admin/daftarProduk" component = { DaftarProduk } />
                 <Route exact path = "/admin/katagori" component = { Katagori } />
+                <Route exact path = "/admin/pesanan" component = { Pesanan } />
                 <Route path = "/admin/detailProduk" component = { DetailProduk } />
             </Switch>
         </React.Fragment>

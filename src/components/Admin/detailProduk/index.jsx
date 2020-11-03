@@ -111,7 +111,6 @@ const DetailProduk = () => {
 
     function displayImage(){
         if (detail_barang.gambar != undefined){
-            
             return(
                 <SideBySideMagnifier imageSrc={"/product/"+detail_barang.gambar} className="w-50" alwaysInPlace="true" style={{ marginLeft:"auto", marginRight:"auto"}}/>
             );

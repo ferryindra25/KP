@@ -29,6 +29,7 @@ app.get("/getKatagori", async (req, res) => {
     res.json(data);
 });
 
+
 app.post("/addCategory", async (req, res) => {
     var nama_kategori = req.body.nama;
     var deskripsi = req.body.deskripsi;
@@ -152,24 +153,11 @@ app.post("/addSpesifikasi", async (req, res) => {
     }
 });
 
-app.post("/login", async (req, res) => {
-    var email = req.body.email;
-    var password = req.body.password;
 
-    var q = `select * from customer where email_customer = '${email}' and password = '${password}'`;
-
-    var hasil = await connection.query(q);
-
-    if (hasil.length > 0){
-        console.log(hasil);
-        res.status(200).send(hasil)
-    } else {
-        res.status(400).send({message : "Email/password anda salah"})
-    }
-});
 
 app.get("/getBarang", async (req, res) => {
-    var q = "select * from barang";
+    var q = `SELECT * FROM (SELECT * FROM barang ORDER BY id_barang DESC LIMIT 6) Var1 ORDER BY id_barang DESC;`;
+        console.log(q);
     var hasil = await connection.query(q);
     res.json(hasil);
 });
@@ -308,6 +296,71 @@ app.post("/updateBarang", (req, res) => {
         
     });
     
+});
+
+app.get("/getHtrans", async (req, res) => {
+    var q = "select * from htrans h, customer c where h.id_customer = c.id_customer";
+    var hasil = await connection.query(q);
+    //console.log(hasil);
+    res.json(hasil);
+})
+
+app.get("/getDtrans", async (req, res) => {
+    var idTrans = req.query.id_trans;
+    var q = "select * from dtrans d, barang b where d.id_barang = b.id_barang and d.id_trans = " + idTrans;
+    var hasil = await connection.query(q);
+    res.json(hasil);
+})
+
+app.post("/prosesOrder", async (req, res) => {
+    var id = req.body.id;
+    var q = `update htrans set status=1 where id_trans=${id}`;
+    try {
+        const hasil = await connection.query(q)
+            
+        if(hasil.affectedRows > 0 ){
+            res.status(200).send({status:"success",message:"Proses order berhasil"})
+        } else {
+            res.status(400).send({status:"fail",message:"Proses order gagal"})
+        }
+            
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+app.post("/siapDiambil", async (req, res) => {
+    var id = req.body.id;
+    var q = `update htrans set status=2 where id_trans=${id}`;
+    try {
+        const hasil = await connection.query(q)
+            
+        if(hasil.affectedRows > 0 ){
+            res.status(200).send({status:"success",message:"Proses order berhasil"})
+        } else {
+            res.status(400).send({status:"fail",message:"Proses order gagal"})
+        }
+            
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+app.post("/orderSelesai", async (req, res) => {
+    var id = req.body.id;
+    var q = `update htrans set status=3 where id_trans=${id}`;
+    try {
+        const hasil = await connection.query(q)
+            
+        if(hasil.affectedRows > 0 ){
+            res.status(200).send({status:"success",message:"Proses order berhasil"})
+        } else {
+            res.status(400).send({status:"fail",message:"Proses order gagal"})
+        }
+            
+    } catch (error) {
+        res.status(500).send(error)
+    }
 });
 
 module.exports = app;
