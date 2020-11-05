@@ -21,6 +21,29 @@ const Pesanan = () => {
             console.log(error);
         });
     }
+
+    const onClikSemua = (e) => {
+        setHtransView(htrans);
+    }
+
+    const onClikAktif = (e) => {
+        let tempTrans = [...htrans]
+        var dataBaru = tempTrans.filter(function(t){
+            var dateTrans = t.status;
+            return dateTrans < 3;
+        })
+        setHtransView(dataBaru);
+    }
+
+    const onClikSelesai = (e) => {
+        let tempTrans = [...htrans]
+        //console.log(tempTrans);
+        var dataBaru = tempTrans.filter(function(t){
+            var dateTrans = (t.status);
+            return dateTrans == 3;
+        })
+        setHtransView(dataBaru);
+    }
     return(
         <React.Fragment>
             <div className="container-fluid">
@@ -30,9 +53,9 @@ const Pesanan = () => {
                     <div className="col-10">
                         <h3>Daftar Pesanan</h3>
                         <hr/>
-                        <button className="btn btn-outline-primary mr-2">Semua Pesanan</button>
-                        <button className="btn btn-outline-primary mr-2">Pesanan Belum dibaca</button>
-                        <button className="btn btn-outline-primary mr-2">Pesanan Selesai</button>
+                        <button className="btn btn-outline-primary mr-2" onClick={(e) => onClikSemua(e)}>Semua Pesanan</button>
+                        <button className="btn btn-outline-primary mr-2" onClick={(e) => onClikAktif(e)}>Order Aktif</button>
+                        <button className="btn btn-outline-primary mr-2" onClick={(e) => onClikSelesai(e)}>Pesanan Selesai</button>
 
                         {
                             htransView.map((item,index) => {
