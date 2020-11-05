@@ -57,11 +57,8 @@ const Detail = () => {
     }
 
     async function getSpesifikasi(){
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var id = url.searchParams.get("id");
         
-        axios.get("/api/getSpesifikasi?id_barang="+id)
+        axios.get("/api/getSpesifikasi?id_barang="+getIDBarang())
         .then(function (response){
             
             color.setValue(response.data[0].color);
@@ -168,6 +165,89 @@ const Detail = () => {
                         <NumberFormat className="w-100" style={{fontSize:"3vh", color:"black"}} value={hargaBarang.value} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} />
                         <br/>
                         {beli()}
+
+                        <table className="table table-bordered mt-4">
+                            <tr>
+                                <td>Color</td>
+                                <td>{color.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Frame</td>
+                                <td>{frame.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Fork</td>
+                                <td>{fork.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Shiftter</td>
+                                <td>{shiftter.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Rear Derauliler</td>
+                                <td>{rd.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Brake</td>
+                                <td>{brake.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Free Wheel</td>
+                                <td>{freewheel.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Pedal</td>
+                                <td>{pedal.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Crankset</td>
+                                <td>{crankset.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Bottom Bracket</td>
+                                <td>{bb.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Chain</td>
+                                <td>{chain.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Front Hub</td>
+                                <td>{fh.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Rear Hub</td>
+                                <td>{rh.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Spokes</td>
+                                <td>{spokes.value}</td>
+                            </tr>
+                            <tr>
+                                <td>rim</td>
+                                <td>{rim.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Tires</td>
+                                <td>{tires.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Saddle</td>
+                                <td>{saddle.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Stem</td>
+                                <td>{stem.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Seatpost</td>
+                                <td>{seatpost.value}</td>
+                            </tr>
+                            <tr>
+                                <td>Handlebar</td>
+                                <td>{handlebar.value}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
