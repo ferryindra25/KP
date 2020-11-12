@@ -363,4 +363,18 @@ app.post("/orderSelesai", async (req, res) => {
     }
 });
 
+app.get("/getTotalJual", async (req, res) => {
+    var q = "select sum(total) 'total' from htrans";
+    var hasil = await connection.query(q);
+    res.json(hasil[0]);
+})
+
+app.get("/getBarangPalingLaku", async (req, res) => {
+    var q = "select b.id_barang, b.nama_barang, count(d.id_barang) 'terjual' from dtrans d, barang b where d.id_barang = b.id_barang group by b.id_barang order by 3 desc";
+    var hasil = await connection.query(q);
+    res.json(hasil);
+});
+
+
+
 module.exports = app;
