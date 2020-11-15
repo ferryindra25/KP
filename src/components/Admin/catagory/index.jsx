@@ -67,12 +67,12 @@ const Catagory = () => {
                     <h3 className="text-center">Input Catagory</h3>
                     <form onSubmit={(e) => onSubmitCatagory(e)}>
                         <div class="form-group">
-                            <label for="namaProduk">Katagori Produk</label>
-                            <input type="text" class="form-control" id="katagori" placeholder="Nama Katagori"></input>
+                            <label for="namaProduk">Kategori Produk</label>
+                            <input type="text" class="form-control" id="katagori" placeholder="Nama Kategori"></input>
                         </div>
                         <div class="form-group">
-                            <label for="namaProduk">Deskripsi Produk</label>
-                            <textarea class="form-control" id="deskripsi" placeholder="Deskripsi Katagori"></textarea>
+                            <label for="namaProduk">Deskripsi Kategori</label>
+                            <textarea class="form-control" id="deskripsi" placeholder="Deskripsi Kategori"></textarea>
                         </div>
                         <input type="submit" value="INPUT" className="btn btn-success"/>
                     </form>

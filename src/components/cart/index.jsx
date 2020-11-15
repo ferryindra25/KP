@@ -5,9 +5,11 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './index.css';
 import formInput from "../Admin/formInput";
+import { useHistory } from 'react-router-dom';
 import { ReplayOutlined } from '@material-ui/icons';
 
 const Cart = () => {
+    const history = useHistory();
     var [tmp, setTmp] = useState([]);
     var totalBelanja = 0;
     var catatan = formInput("");
@@ -22,6 +24,7 @@ const Cart = () => {
         e.preventDefault();
         
         var token = window.sessionStorage.getItem("token");
+        window.sessionStorage.setItem("total",totalBelanja);
         var tanggal = document.getElementById("tanggal").value;
         //console.log(tanggal);
         if (new Date(tanggal) < Date.now()){
@@ -37,7 +40,7 @@ const Cart = () => {
                 window.sessionStorage.removeItem("cart");
                 alert("pesanan anda berhasil terinput");
                 checkCart();
-                window.location.reload();
+                history.push("/konfirm");
             }).catch(function (error2) {
                 console.log(error2)
                 alert(error2.response);

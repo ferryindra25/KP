@@ -43,6 +43,10 @@ const NavBar = () => {
     history.push("/home");
   }
 
+  const onClickAbout = (e) => {
+    history.push("/about");
+  }
+
   const onClickKatagori = (e, id_katagori, nama_katagori) => {
     history.push("/shop?id_katagori="+id_katagori+"&name="+nama_katagori);
   }
@@ -72,8 +76,7 @@ const NavBar = () => {
                 );
               })}
             </Dropdown>
-            <Nav.Item>Tentang Kami</Nav.Item>
-            <Nav.Item>Lokasi Toko</Nav.Item>
+            <Nav.Item href="/about">Tentang Kami</Nav.Item>
             {dataUser}
             
           </Nav>

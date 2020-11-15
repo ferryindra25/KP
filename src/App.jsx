@@ -12,6 +12,8 @@ import home from "./components/home";
 import cart from "./components/cart";
 import pesananAktif from "./components/pesananAktif";
 import historyPesanan from "./components/historyPesanan";
+import About from "./components/aboutus";
+import konfirm from "./components/KonfirmasiBayar";
 //TODO Web Template Studio: Add routes for your new pages here.
 const App = () => {
     return (
@@ -25,6 +27,8 @@ const App = () => {
           <Route exact path = "/historyPesanan" component = { historyPesanan } />
           <Route exact path = "/home" component = { home } />
           <Route exact path = "/cart" component = { cart } />
+          <Route exact path = "/about" component = { About } />
+          <Route exact path = "/konfirm" component = { konfirm } />
           <Route path = "/admin" component = { Admin } />
           <Route path = "/shop" component = { shop } />
           <Route path = "/detail" component = { detail } />

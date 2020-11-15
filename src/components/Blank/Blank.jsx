@@ -42,7 +42,7 @@ const Blank = () => {
                 />
                 <Carousel.Caption>
                   <h3>TOKO SEPEDA BINTANG TERANG</h3>
-                  <p>Berlokasi di jalan tugu pahlawan surabaya</p>
+                  <p>Berlokasi di jalan pasar turi 25 surabaya</p>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>

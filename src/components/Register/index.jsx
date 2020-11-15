@@ -93,9 +93,9 @@ const Register = () => {
                     </Typography>
                     <form onSubmit={(e) => onSubmitRegister(e, varRegis)}>
                         <input type="email" name="email" id="email" placeholder="Email" className="form-control mt-3" value={email.value} onChange={email.onChange}/>
-                        <input type="text" name="name" id="name" placeholder="Name" className="form-control mt-2" value={nama.value} onChange={nama.onChange}/>
-                        <input type="text" name="address" id="address" placeholder="Address" className="form-control mt-2" value={alamat.value} onChange={alamat.onChange}/>
-                        <input type="text" name="telp" id="telp" placeholder="Telephone Number" className="form-control mt-2" value={telp.value} onChange={telp.onChange}/>
+                        <input type="text" name="name" id="name" placeholder="Nama" className="form-control mt-2" value={nama.value} onChange={nama.onChange}/>
+                        <input type="text" name="address" id="address" placeholder="Alamat" className="form-control mt-2" value={alamat.value} onChange={alamat.onChange}/>
+                        <input type="text" name="telp" id="telp" placeholder="Nomor Telepon" className="form-control mt-2" value={telp.value} onChange={telp.onChange}/>
                         <input type="password" name="password" id="password" placeholder="Password" className="form-control mt-2" value={password.value} onChange={password.onChange}/>
                         <Button
                             type="submit"
